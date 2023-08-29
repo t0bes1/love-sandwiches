@@ -17,23 +17,27 @@ SHEET = GSPREAD_CLIENT.open('love_sandwiches')
 
 
 def get_sales_data():
-    print("please enter sales data")
-    print("data should be 6 numbers")
-    data_str = input("Enter your data here:")
+    while True:
+        print("please enter sales data")
+        print("data should be 6 numbers")
+        data_str = input("Enter your data here:")
 
-    sales_data = data_str.split(",")
-    print(sales_data)
-    validate_data(sales_data)
+        sales_data = data_str.split(",")
+        if validate_data(sales_data):
+            print("Data is Valid")
+            break
 
 
 def validate_data(values):
-    print(values)
     try:
         [int(value) for value in values]
         if len(values) != 6:
             raise ValueError(f"wrong numnber of {values}")
     except ValueError as e:
         print(f"invalid data: {e}")
+        return False
+
+    return True
 
 
 get_sales_data()
